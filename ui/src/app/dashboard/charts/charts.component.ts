@@ -3,6 +3,7 @@ import {CurrenciesService} from '../../currencies.service';
 import {Chart} from './chart';
 import {ChartOptions} from 'chart.js';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-charts',
@@ -39,10 +40,22 @@ export class ChartsComponent implements OnInit {
   };
 
 
-  constructor(private currenciesService: CurrenciesService) {}
+  constructor(
+    private currenciesService: CurrenciesService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.currenciesService.getCurrencyCodes().subscribe(v => this.currencies = v.data.currencies);
+    this.userService.findUser('hitler@didnothingwrong.de', ['email', 'firstName']).subscribe(x => console.log(x.data.findClient.email));
+    this.userService.saveUser({
+     firstName: 'Anakin',
+      lastName: 'Skywalker',
+      email: 'asky@good.roast',
+      dashboardCurrencies: [
+        'EUR', 'PLN'
+      ]
+    }).subscribe(x => console.log(x));
   }
 
   addChart() {

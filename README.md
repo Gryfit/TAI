@@ -25,6 +25,29 @@ Fetching data from period:
 }
 ```
 
+Fetch client from DB 
+```json
+{
+	"query": "query FetchName($email: String!){ findClient (email: $email){ dashboardCurrencies }}",
+	"variables": {
+		"email": "jk@gmail.com"
+	}
+}
+```
+
+Save client to DB
+```json
+{
+	"query": "mutation SAVE($firstName: String!, $lastName: String!, $email: String!, $dashboardCurrencies: [String!]!){ saveUser (firstName: $firstName, lastName: $lastName, email: $email, dashboardCurrencies: $dashboardCurrencies)}",
+	"variables": {
+		"firstName": "Anna",
+		"lastName": "Kowalska",
+		"email": "akowalska@gmail.com",
+		"dashboardCurrencies": ["PLN", "EUR"]
+	}
+}
+```
+
 ### Building docker images:
 Backend:
 ```bash
